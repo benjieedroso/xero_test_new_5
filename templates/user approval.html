@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approve Admins</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Approve Admins</h1>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary mb-3">Back to Admin Dashboard</a>
+
+        <!-- Pending Admin Approvals -->
+        <h3>Pending Admin Approvals</h3>
+        {% if pending_admins %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Company</th>
+                    <th>Approve</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in pending_admins %}
+                <tr>
+                    <td>{{ admin.username }}</td>
+                    <td>{{ admin.email }}</td>
+                    <td>{{ admin.company }}</td>
+                    <td>
+                        <form action="{{ url_for('approve_admins') }}" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="user_id" value="{{ admin.id }}">
+                            <button type="submit" class="btn btn-success">Approve</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No pending admin approvals.</p>
+        {% endif %}
+
+        <!-- Approved Admins Section -->
+        <h3>Approved Admins</h3>
+        {% if approved_admins %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Company</th>
+                    <th>Access Level</th>
+                    <th>Update Access Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in approved_admins %}
+                <tr>
+                    <td>{{ admin.username }}</td>
+                    <td>{{ admin.email }}</td>
+                    <td>{{ admin.company }}</td>
+                    <td>{{ admin.access_level }}</td>
+                    <td>
+                        <form action="{{ url_for('update_user_access', user_id=admin.id) }}" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="user_id" value="{{ admin.id }}">
+                            <select name="access_level" class="form-control">
+                                <option value="file_download" {% if admin.access_level == 'file_download' %} selected {% endif %}>File Download Only</option>
+                                <option value="read_only" {% if admin.access_level == 'read_only' %} selected {% endif %}>Read Only</option>
+                                <option value="edit_and_download" {% if admin.access_level == 'edit_and_download' %} selected {% endif %}>Edit and Download</option>
+                            </select>
+                            <button type="submit" class="btn btn-warning mt-2">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No approved admins.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+

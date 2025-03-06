@@ -1,0 +1,86 @@
+[2025-03-06 11:01:22,323] ERROR in app: Missing environment variables: SECRET_KEY, WTF_CSRF_SECRET_KEY, RDS_DATABASE_URI, S3_BUCKET, S3_KEY, S3_SECRET, S3_REGION
+[2025-03-06 11:13:20,279] ERROR in app: Missing environment variables: SECRET_KEY, WTF_CSRF_SECRET_KEY, RDS_DATABASE_URI, S3_BUCKET, S3_KEY, S3_SECRET, S3_REGION
+[2025-03-06 11:18:15,384] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 878, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1253, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\Users\benji\Downloads\xero_test_new_5\app.py", line 129, in make_session_permanent
+    session.permanent = True
+    ^^^^^^^^^^^^^^^^^
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\sessions.py", line 34, in permanent
+    self["_permanent"] = bool(value)
+    ~~~~^^^^^^^^^^^^^^
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\sessions.py", line 102, in _fail
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+[2025-03-06 11:18:19,576] ERROR in app: Exception on /register [GET]
+Traceback (most recent call last):
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 878, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1253, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\Users\benji\Downloads\xero_test_new_5\app.py", line 129, in make_session_permanent
+    session.permanent = True
+    ^^^^^^^^^^^^^^^^^
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\sessions.py", line 34, in permanent
+    self["_permanent"] = bool(value)
+    ~~~~^^^^^^^^^^^^^^
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\sessions.py", line 102, in _fail
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+[2025-03-06 11:19:03,726] ERROR in app: Exception on /register [GET]
+Traceback (most recent call last):
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 878, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1253, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\Users\benji\Downloads\xero_test_new_5\app.py", line 129, in make_session_permanent
+    session.permanent = True
+    ^^^^^^^^^^^^^^^^^
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\sessions.py", line 34, in permanent
+    self["_permanent"] = bool(value)
+    ~~~~^^^^^^^^^^^^^^
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\sessions.py", line 102, in _fail
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+[2025-03-06 11:19:26,556] ERROR in app: Exception on /register [GET]
+Traceback (most recent call last):
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 878, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1253, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\Users\benji\Downloads\xero_test_new_5\app.py", line 129, in make_session_permanent
+    session.permanent = True
+    ^^^^^^^^^^^^^^^^^
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\sessions.py", line 34, in permanent
+    self["_permanent"] = bool(value)
+    ~~~~^^^^^^^^^^^^^^
+  File "C:\Users\benji\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\sessions.py", line 102, in _fail
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <!-- Custom Button and Dropdown Styles -->
+    <style>
+        .btn-primary {
+            background-color: #4a7c59;
+            border-color: #4a7c59;
+        }
+
+        .btn-primary:hover {
+            background-color: #36543a;
+            border-color: #36543a;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-close {
+            width: 30%;
+            background-color: #4a7c59;
+            border-color: #4a7c59;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 80px;
+            height: auto;
+        }
+
+
+        .form-control {
+            border: 1px solid #515f32;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+    
+
+        .is-invalid {
+            border-color: red;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                width: 60px;
+            }
+
+            .btn-block {
+                font-size: 1rem;
+            }
+
+            .text-danger {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Logo">
+        <h1 class="text-center">Register</h1>
+
+        <form action="{{ url_for('register') }}" enctype="multipart/form-data" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="text" name="first_name" class="form-control" placeholder="Firstname" required>
+            <input type="text" name="last_name" class="form-control" placeholder="Lastname" required>
+            <input type="text" name="username" class="form-control" placeholder="Username" required>
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password" required>
+            <input type="text" name="company" class="form-control" placeholder="Company" required>
+            <select name="role" class="form-control" required>
+                <option value="" disabled selected>Select your role</option>
+                <option value="client">Client</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        
+        <p class="text-center">Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+  $(document).ready(function() {
+    // Username validation via AJAX
+    $('#username').on('input', function() {
+        var username = $(this).val();
+        if (username.length > 0) {
+            $.ajax({
+                url: "{{ url_for('validate_username') }}",
+                method: "POST",
+                contentType: 'application/json', // Include this to specify content type
+                data: JSON.stringify({ username: username }), // Send data as JSON
+                success: function(response) {
+                    if (response.exists) {
+                        $('#usernameError').show();
+                        $('#username').addClass('is-invalid');
+                        $('#submitBtn').attr('disabled', 'disabled');
+                    } else {
+                        $('#usernameError').hide();
+                        $('#username').removeClass('is-invalid');
+                        $('#submitBtn').removeAttr('disabled');
+                    }
+                }
+            });
+        } else {
+            $('#usernameError').hide();
+            $('#username').removeClass('is-invalid');
+            $('#submitBtn').removeAttr('disabled');
+        }
+    });
+});
+
+
+    </script>
+</body>
+</html>
