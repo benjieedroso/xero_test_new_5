@@ -229,17 +229,16 @@
         <a href="{{ url_for('create_report') }}" class="btn btn-primary btn-create-report">Click / 클릭</a>
 
 
-        <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert" id="xero-warning" {% if not xero_warning %}style="display: none;"{% endif %}>
+         <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert" id="xero-warning" {% if not xero_warning %}style="display: none;"{% endif %}>
             <strong>Warning!</strong> Your account is not connected to Xero. 
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <a href="{{ url_for('connect_xero') }}" class="btn btn-warning btn-sm mt-2" role="button">
                 Connect Now / 연결하기
             </a>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        </div> 
         
         
-
         <!-- Filter/Sort Section -->
         <div class="filter-section">
             <h5>Filter Reports / 리포트 필터 </h5>

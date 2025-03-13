@@ -1,93 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connect to Xero</title>
     <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
 
     <!-- Custom Button and Styles -->
     <style>
-        :root {
-            --primary-color: #4a7c59;
-            --primary-hover: #36543a;
-        }
+      :root {
+        --primary-color: #4a7c59;
+        --primary-hover: #36543a;
+      }
 
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
 
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-            border-color: var(--primary-hover);
+      .btn-primary:hover {
+        background-color: var(--primary-hover);
+        border-color: var(--primary-hover);
+      }
+
+      .btn-block {
+        width: 100%;
+      }
+
+      .logo {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 80px;
+        height: auto;
+      }
+
+      .form-control {
+        border: 1px solid #515f32;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1rem;
+        margin-bottom: 20px;
+      }
+
+      .error-message {
+        color: red;
+        font-size: 0.9rem;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .logo {
+          width: 60px;
         }
 
         .btn-block {
-            width: 100%;
+          font-size: 1rem;
         }
-
-        .logo {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 80px;
-            height: auto;
-        }
-
-        .form-control {
-            border: 1px solid #515f32;
-            border-radius: 5px;
-            padding: 10px;
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 0.9rem;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .logo {
-                width: 60px;
-            }
-
-            .btn-block {
-                font-size: 1rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container mt-5">
-        <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Company Logo">
-        <h1 class="text-center">Connect to Xero</h1>
-        <p class="text-center">To start using the system, please connect your Xero account.</p>
+      <img
+        src="{{ url_for('static', filename='img/logo.png') }}"
+        class="logo"
+        alt="Company Logo"
+      />
+      <h1 class="text-center">Connect to Xero</h1>
+      <p class="text-center">
+        To start using the system, please connect your Xero account.
+      </p>
 
-        <!-- Display errors dynamically -->
-        {% if error_message %}
-        <p class="error-message">{{ error_message }}</p>
-        {% endif %}
+      <!-- Display errors dynamically -->
+      {% if error_message %}
+      <p class="error-message">{{ error_message }}</p>
+      {% endif %}
 
-        <div class="text-center mt-4">
-            <a href="{{ xero_auth_url }}" class="btn btn-primary btn-block" aria-label="Connect to Xero">
-                Connect to Xero
-            </a>
-        </div>
-        
-        <p class="text-center mt-3">
-            Already connected? <a href="{{ url_for('index') }}">Go to Dashboard</a>
-        </p>
+      <div class="text-center mt-4">
+        <a
+          href="{{ xero_auth_url }}"
+          class="btn btn-primary btn-block"
+          aria-label="Connect to Xero"
+        >
+          Connect to Xero
+        </a>
+      </div>
+
+      <p class="text-center mt-3">
+        Already connected? <a href="{{ url_for('index') }}">Go to Dashboard</a>
+      </p>
     </div>
 
     <!-- Include Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+  </body>
 </html>

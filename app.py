@@ -138,6 +138,7 @@ class User(UserMixin, db.Model):
     company = db.Column(db.String(150), nullable=False)
     role = db.Column(db.String(150), nullable=False)
     approved = db.Column(db.Boolean, default=False)  # Add a column to handle approval status
+    access_level = db.Column(db.String(20), default='read_only')
     reset_token = db.Column(db.String(100), nullable=True)
     reset_token_expiry = db.Column(db.DateTime, nullable=True)
     report_histories = db.relationship(
@@ -460,6 +461,44 @@ def admin_dashboard():
         approved_users=approved_users,
         super_admin=(current_user.role == 'super_admin')
     )
+
+@app.route('/dashboard_admin', methods=['GET'])
+@login_required
+def admin2():
+    if current_user.role not in ['admin', 'super_admin']:
+        flash("Not authorized", "danger")
+        return redirect(url_for('index'))
+    for_approvals = User.query.filter_by(approved=False)
+    approved_users = User.query.filter_by(approved=True)
+    return render_template(
+        'dashboard_admin.html',
+        for_approvals=for_approvals,
+        approved_users=approved_users
+        )
+@app.route('/update_access_level/<string:user_id>', methods=['POST'])
+@login_required
+def update_access_level(user_id):
+    if current_user.role not in ['admin', 'super_admin']:
+        flash('Not Authorized', 'danger')
+        return redirect(url_for('index'))
+    user = User.query.get_or_404(user_id)
+    access_level = request.form['access_level']
+    user.access_level = access_level
+    db.session.commit()
+    return redirect('/dashboard_admin')
+    
+    
+
+@app.route('/approve_test/<string:user_id>', methods=['POST'])
+def approve_test(user_id):
+    if current_user.role != 'super_admin':
+        flash('Not authorized', 'danger')
+        return redirect(url_for('index'))
+    user = User.query.get_or_404(user_id)
+    user.approved = True; 
+    db.session.commit()
+    flash(f"{user.username} is aprroved.", "success")
+    return redirect('/dashboard_admin')
 
 @app.route('/admin', methods=['GET', 'POST'])
 @login_required
@@ -1152,6 +1191,13 @@ def edit_report(id):
 
     return render_template('edit_report.html', report=report, sales_data=sales_data, expenses=report.expenses)
 
+
+@app.route('/connect_xero')
+def connect_xero():
+    return 'Xero'
+@app.route('/approve_report')
+def approve_report():
+    return 'Approve report'
 
 @app.route('/report/delete/<string:id>', methods=['POST'])
 @login_required

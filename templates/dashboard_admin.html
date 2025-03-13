@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Page</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"
+          ><img
+            src="{{ url_for('static', filename='img/logo.png')}}"
+            alt="Olive & Vine"
+            style="width: 80px"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="bi bi-list"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link active btn btn-success btn-sm px-3 mr-lg-3 mb-3" aria-current="page" href="{{ url_for('admin') }}">
+                Admin
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active btn btn-secondary btn-sm px-3" aria-current="page" href="{{ url_for('logout') }}">
+               Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <h3>Pending Approval</h3>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Username</th>
+              <th>Company</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if for_approvals %} {% for for_approval in for_approvals %}
+            <tr>
+              <td>{{ for_approval.first_name }}</td>
+              <td>{{ for_approval.last_name }}</td>
+              <td>{{ for_approval.username }}</td>
+              <td>{{ for_approval.company }}</td>
+              <td>
+                <form
+                  action="{{ url_for('approve_test', user_id=for_approval.id) }}"
+                  method="post"
+                  class="d-inline m-0 p-0"
+                >
+                  <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                  />
+                  <button type="submit" class="btn btn-primary btn-sm">
+                    Approve
+                  </button>
+                </form>
+              </td>
+              {% endfor %}
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5">No users for approval</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="container mt-3">
+      <!-- Approved users  -->
+      <h3>Approved Users</h3>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Username</th>
+              <th>Company</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if approved_users %} {% for approved_user in approved_users %}
+            <tr>
+              <td>{{ approved_user.first_name }}</td>
+              <td>{{ approved_user.last_name }}</td>
+              <td>{{ approved_user.username }}</td>
+              <td>{{ approved_user.company }}</td>
+              <td>
+                <form
+                  action="{{ url_for('update_access_level', user_id=approved_user.id) }}"
+                  method="post"
+                >
+                  <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                  />
+                  <select name="access_level" class="form-control">
+                    <option value="read_only" {% if approved_user.access_level == 'read_only' %} selected {% endif %}>Read Only</option>
+                    <option value="edit_only" {% if approved_user.access_level == 'edit_only' %} selected {% endif %}>Edit Only</option>
+                    <option value="edit_download" {% if approved_user.access_level == 'edit_download' %} selected {% endif %}>Edit + Download</option>
+                  </select>
+                  <button type="submit" class="btn btn-sm btn-primary">
+                    Update
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %} {% else %}
+            <tr>
+              <td colspan="5">No approved users</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Script Section -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

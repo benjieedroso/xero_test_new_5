@@ -57,7 +57,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin">Home</a>
+                        <a class="nav-link" href="{{ url_for('admin')}}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-secondary text-white" href="{{ url_for('logout') }}">Logout</a>
@@ -74,9 +74,11 @@
         <!-- Super Admin Only: Link to Admin Dashboard -->
         {% if current_user.role == 'super_admin' %}
         <div class="text-center mb-4">
-            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary">Go to Admin Dashboard</a>
+            <a href="/dashboard_admin" class="btn btn-primary">Go to Admin Dashboard</a>
         </div>
         {% endif %}
+
+        
 
         <!-- Filter/Sort Section -->
         <div class="filter-section mb-5">
